@@ -10,6 +10,7 @@ class EncodingFixture
     public static readonly AlphabetPattern = /^[A-Za-z0-9_-]+$/
     public static readonly OverLongLength = 300
     public static readonly OverLongChar = 'x'
+    public static readonly LeakProbeLength = 10
 }
 
 test('ToSecretId is deterministic', () =>
@@ -35,6 +36,6 @@ test('ToSecretId throws for an over-long reference without leaking it', () =>
     assert.throws(() => SecretRefEncoding.ToSecretId(ref), (error: unknown) =>
     {
         const message = (error as Error).message
-        return !message.includes(ref) && !message.includes(EncodingFixture.OverLongChar.repeat(10))
+        return !message.includes(ref) && !message.includes(EncodingFixture.OverLongChar.repeat(EncodingFixture.LeakProbeLength))
     })
 })
