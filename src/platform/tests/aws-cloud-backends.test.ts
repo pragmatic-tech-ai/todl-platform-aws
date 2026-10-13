@@ -125,3 +125,16 @@ test('unknown rdsAuth rejects', async () =>
         /Invalid rdsAuth/)
     assert.equal(f.PoolCalls, 0)
 })
+
+test('rdsAuth mapping is case-insensitive', async () =>
+{
+    const f = new BackendsFixture()
+    f.Secrets.Secrets.set(SecretRefEncoding.ToSecretId(BackendsFixture.Ref), BackendsFixture.PasswordValue)
+    await AwsCloudBackends.Create(
+        BackendsFixture.Config({ rdsAuth: 'PASSWORD', rdsPasswordRef: BackendsFixture.Ref }), f.Factories())
+    assert.equal(f.PasswordArg, BackendsFixture.PasswordValue)
+
+    const g = new BackendsFixture()
+    await AwsCloudBackends.Create(BackendsFixture.Config({ rdsAuth: 'IAM' }), g.Factories())
+    assert.equal(g.PasswordArg, undefined)
+})
