@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1151.0",
+    "@aws-sdk/client-secrets-manager": "3.1151.0",
     "@pragmatic-tech-ai/todl": "file:../TODL",
     "@pragmatic-tech-ai/todl-identity": "file:../todl-identity",
     "@pragmatic-tech-ai/todl-platform-cloud": "file:../todl-platform-cloud",
