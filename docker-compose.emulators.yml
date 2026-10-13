@@ -1,0 +1,17 @@
+# Local S3 emulator for the gated conformance test (src/storage/tests/s3-object-store-live.test.ts).
+# Opt-in; the default test gate does not run it. Workflow:
+#   docker compose -f docker-compose.emulators.yml up -d
+#   docker compose -f docker-compose.emulators.yml exec localstack awslocal s3 mb s3://pragmatic-test
+#     (or: aws --endpoint-url http://localhost:4566 s3 mb s3://pragmatic-test)
+#   export PRAGMATIC_TEST_S3_ENDPOINT=http://localhost:4566
+#   export PRAGMATIC_TEST_S3_BUCKET=pragmatic-test
+#   export PRAGMATIC_TEST_S3_REGION=us-east-1   # optional, defaults to us-east-1
+#   npm test
+# State is discarded when the container is removed.
+services:
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      - SERVICES=s3
+    ports:
+      - "4566:4566"
