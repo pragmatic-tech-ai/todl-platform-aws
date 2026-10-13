@@ -7,3 +7,5 @@ export { AwsSecretsManagerSecretStore } from './secrets/aws-secrets-manager-secr
 export { SecretRefEncoding } from './secrets/secret-ref-encoding.js'
 export type { ISecretManagerClient } from './secrets/secret-manager-client.js'
 export { RealSecretsManagerClient } from './secrets/real-secrets-manager-client.js'
+export { RdsPoolFactory, RdsAuthMode } from './sql/rds-pool-factory.js'
+export type { IRdsPoolOptions, IRdsPoolHandle, IRdsSigner, IRdsPool } from './sql/rds-pool-factory.js'

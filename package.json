@@ -17,13 +17,17 @@
   "dependencies": {
     "@aws-sdk/client-s3": "3.1151.0",
     "@aws-sdk/client-secrets-manager": "3.1151.0",
+    "@aws-sdk/rds-signer": "3.1151.0",
     "@pragmatic-tech-ai/todl": "file:../TODL",
     "@pragmatic-tech-ai/todl-identity": "file:../todl-identity",
     "@pragmatic-tech-ai/todl-platform-cloud": "file:../todl-platform-cloud",
-    "@pragmatic-tech-ai/todl-runtime": "file:../todl-runtime"
+    "@pragmatic-tech-ai/todl-runtime": "file:../todl-runtime",
+    "pg": "8.23.1"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",
+    "@types/pg": "8.23.1",
+    "pg-mem": "3.0.14",
     "tsx": "^4.0.0",
     "typescript": "^5.5.0"
   }
