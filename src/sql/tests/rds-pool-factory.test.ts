@@ -45,7 +45,7 @@ test('IAM mode: ssl set and password is a function minting a fresh token per cal
 {
     const f = new RdsFixture()
     await f.Factory().Create()
-    assert.ok(f.cfg.ssl)
+    assert.deepEqual(f.cfg.ssl, { rejectUnauthorized: true })
     assert.equal(typeof f.cfg.password, 'function')
     assert.equal(f.signerCalls, 0)
     const mint = f.cfg.password as () => Promise<string>
@@ -60,7 +60,7 @@ test('PASSWORD mode: provided string used, signer never called, ssl set', async 
     const f = new RdsFixture()
     await f.Factory({ authMode: RdsAuthMode.Password, password: RdsFixture.Secret }).Create()
     assert.equal(f.cfg.password, RdsFixture.Secret)
-    assert.ok(f.cfg.ssl)
+    assert.deepEqual(f.cfg.ssl, { rejectUnauthorized: true })
     assert.equal(f.signerCalls, 0)
 })
 

@@ -54,7 +54,7 @@ export class RdsPoolFactory
 
     public async Create(): Promise<IRdsPoolHandle>
     {
-        const authMode = this.options.authMode ?? RdsAuthMode.Iam
+        const authMode = this.options.authMode ?? RdsPoolFactory.DefaultAuthMode
         const cfg: Record<string, unknown> = {
             host: this.options.host,
             port: this.options.port,
