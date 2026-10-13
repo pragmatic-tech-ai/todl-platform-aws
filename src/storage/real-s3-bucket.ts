@@ -9,6 +9,7 @@ export class RealS3Bucket implements IS3Bucket
     private static readonly NoSuchKeyName = 'NoSuchKey'
     private static readonly NotFoundName = 'NotFound'
     private static readonly NotFoundStatus = 404
+    private static readonly NoBodyMessage = 'S3 GetObject returned no body'
 
     private readonly client: S3Client
     private readonly bucket: string
@@ -31,8 +32,11 @@ export class RealS3Bucket implements IS3Bucket
         try
         {
             const response = await this.client.send(new GetObjectCommand({ Bucket: this.bucket, Key: this.prefix + key }))
-            const body = await response.Body?.transformToByteArray()
-            return body === undefined ? undefined : new Uint8Array(body)
+            if (response.Body === undefined)
+            {
+                throw new Error(RealS3Bucket.NoBodyMessage)
+            }
+            return new Uint8Array(await response.Body.transformToByteArray())
         }
         catch (e)
         {

@@ -60,3 +60,11 @@ test('ListKeys follows continuation tokens across pages', async () =>
     }
     assert.deepEqual([...await f.Bucket.ListKeys()].sort(), ['a', 'b', 'c', 'd', 'e'])
 })
+
+test('Download rejects (not undefined) when a successful GET has no body', async () =>
+{
+    const f = new Fixture()
+    await f.Bucket.Save('a', new Uint8Array([1]))
+    f.Fake.BodylessKeys.add('pfx/a')
+    await assert.rejects(() => f.Bucket.Download('a'), /no body/)
+})

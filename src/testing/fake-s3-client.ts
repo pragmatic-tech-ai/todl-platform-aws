@@ -2,6 +2,13 @@
  *  name and is backed by an in-memory map keyed by full object key. */
 export class FakeS3Client
 {
+    private static readonly PutName = 'PutObjectCommand'
+    private static readonly GetName = 'GetObjectCommand'
+    private static readonly DeleteName = 'DeleteObjectCommand'
+    private static readonly ListName = 'ListObjectsV2Command'
+    private static readonly NoSuchKeyName = 'NoSuchKey'
+
+    public readonly BodylessKeys = new Set<string>()
     public readonly Objects = new Map<string, Uint8Array>()
     public PageSize = 1000
 
@@ -10,22 +17,26 @@ export class FakeS3Client
         const input = command.input
         switch (command.constructor.name)
         {
-            case 'PutObjectCommand':
+            case FakeS3Client.PutName:
                 this.Objects.set(input.Key, new Uint8Array(input.Body))
                 return {}
-            case 'GetObjectCommand':
+            case FakeS3Client.GetName:
             {
                 const stored = this.Objects.get(input.Key)
                 if (stored === undefined)
                 {
-                    throw Object.assign(new Error('The specified key does not exist.'), { name: 'NoSuchKey' })
+                    throw Object.assign(new Error('The specified key does not exist.'), { name: FakeS3Client.NoSuchKeyName })
+                }
+                if (this.BodylessKeys.has(input.Key))
+                {
+                    return {}
                 }
                 return { Body: { transformToByteArray: async () => stored } }
             }
-            case 'DeleteObjectCommand':
+            case FakeS3Client.DeleteName:
                 this.Objects.delete(input.Key)
                 return {}
-            case 'ListObjectsV2Command':
+            case FakeS3Client.ListName:
                 return this.List(input.Prefix ?? '', input.ContinuationToken)
             default:
                 throw new Error('unexpected command ' + command.constructor.name)
