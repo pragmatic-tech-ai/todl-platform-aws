@@ -1,6 +1,10 @@
 {
   "name": "@pragmatic-tech-ai/todl-platform-aws",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pragmatic-tech-ai/todl-platform-aws.git"
+  },
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,10 +26,10 @@
     "@aws-sdk/client-s3": "3.1151.0",
     "@aws-sdk/client-secrets-manager": "3.1151.0",
     "@aws-sdk/rds-signer": "3.1151.0",
-    "@pragmatic-tech-ai/todl": "file:../TODL",
-    "@pragmatic-tech-ai/todl-identity": "file:../todl-identity",
-    "@pragmatic-tech-ai/todl-platform-cloud": "file:../todl-platform-cloud",
-    "@pragmatic-tech-ai/todl-runtime": "file:../todl-runtime",
+    "@pragmatic-tech-ai/todl": "^0.66.1",
+    "@pragmatic-tech-ai/todl-identity": "^0.1.0",
+    "@pragmatic-tech-ai/todl-platform-cloud": "^0.1.0",
+    "@pragmatic-tech-ai/todl-runtime": "^0.7.0",
     "pg": "8.23.1"
   },
   "devDependencies": {
@@ -34,5 +38,12 @@
     "pg-mem": "3.0.14",
     "tsx": "^4.0.0",
     "typescript": "^5.5.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   }
 }
