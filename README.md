@@ -1,3 +1,7 @@
+> Archived 2026-11-20: moved to pragmatic-shared (packages/pragmatic-realm-aws) as @pragmatic-tech-ai/pragmatic-realm-aws.
+>
+> The package @pragmatic-tech-ai/todl-platform-aws is retired. GitHub Packages does not support npm deprecate, so its published versions carry no deprecation flag; use the new package.
+
 # @pragmatic-tech-ai/todl-platform-aws
 
 AWS-backed platform adapters for `pragmatic-server` running in `DeploymentMode.Cloud`:
